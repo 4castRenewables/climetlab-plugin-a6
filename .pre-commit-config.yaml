@@ -1,0 +1,79 @@
+default_language_version:
+    python: python3.7
+
+repos:
+  - repo: local
+    hooks:
+      - id: jupyter-nb-clear-output
+        name: jupyter-nb-clear-output
+        files: \.ipynb$
+        language: system
+        entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.34.0
+    hooks:
+      - id: pyupgrade
+        args: [
+            "--py3-plus",
+            "--py36-plus",
+            "--py37-plus",
+        ]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=775"]
+      - id: check-builtin-literals
+      - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+        args: ["--allow-multiple-documents"]
+      - id: debug-statements
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+  -   repo: https://github.com/psf/black
+      rev: 22.3.0
+      hooks:
+        - id: black
+          args: ["--config", "pyproject.toml"]
+          files: (climetlab_maelstrom_power_production|tests)
+  -   repo: https://github.com/pycqa/isort
+      rev: 5.10.1
+      hooks:
+        - id: isort
+          name: isort (python)
+        - id: isort
+          name: isort (cython)
+          types: [cython]
+        - id: isort
+          name: isort (pyi)
+          types: [pyi]
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+        files: (climetlab_maelstrom_power_production|tests)
+        args: ["--config", "pyproject.toml"]
+        additional_dependencies: [
+          flake8-bandit,
+          flake8-blind-except,
+          flake8-builtins-unleashed,
+          flake8-bugbear,
+          flake8-comprehensions,
+          flake8-docstrings,
+          flake8-eradicate,
+          flake8-mutable,
+          flake8-pytest-style,
+          pep8-naming,
+          pydocstyle
+        ]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.961
+    hooks:
+      - id: mypy
+        files: climetlab_maelstrom_power_production
+        args: ["--config-file", "pyproject.toml"]
+        additional_dependencies: [xarray, pandas]
