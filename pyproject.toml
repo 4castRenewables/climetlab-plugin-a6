@@ -5,7 +5,7 @@ description = "CliMetLab plugin for the dataset climetlab-plugin-a6/maelstrom-pr
 authors = ["Fabian Emmerich <fabian.emmerich@4-cast.de>"]
 license = "Apache-2.0"
 homepage = "https://climetlab.readthedocs.io/en/latest/"
-repository = "https://github.com/faemmi/climetlab-plugin-a6"
+repository = "https://github.com/4castRenewables/climetlab-plugin-a6"
 packages = [{ include = "climetlab_maelstrom_power_production" }]
 readme = "README.md"
 keywords = ["meteorology", "weather", "climate", "wind power"]
