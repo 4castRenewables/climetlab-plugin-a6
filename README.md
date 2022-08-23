@@ -62,7 +62,7 @@ production_data = cml.load_dataset("maelstrom-power-production", wind_turbine_id
 
 The `wind_turbine_id` is a number `1` to `N`, where `N` is the maximum number of currently available wind turbines.
 
-Currently available: 45 wind turbines.
+Currently available: 4 wind turbines.
 
 ### `maelstrom-weather-model-level`
 [ECMWF](https://www.ecmwf.int) IFS HRES model level data for whole Europe.
