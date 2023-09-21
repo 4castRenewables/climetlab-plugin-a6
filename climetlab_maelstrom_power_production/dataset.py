@@ -9,7 +9,7 @@ from climetlab_maelstrom_power_production import config
 
 from . import merger
 
-BASE_PATTERN = "{url}/MAELSTROM_AP6/"
+BASE_PATTERN = "{url}/maelstrom-ap6/"
 
 
 class AbstractDataset(cml.Dataset):
