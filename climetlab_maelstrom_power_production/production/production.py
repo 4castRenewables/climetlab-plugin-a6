@@ -13,7 +13,7 @@ from climetlab_maelstrom_power_production import dataset
 
 PATTERN = "production_data/wind_turbine_{wind_turbine_id}.nc"
 
-NUMBER_OF_AVAILABLE_WIND_TURBINES = 45
+NUMBER_OF_AVAILABLE_WIND_TURBINES = 4
 
 
 class Production(dataset.AbstractDataset):
