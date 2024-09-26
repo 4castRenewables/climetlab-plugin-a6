@@ -1,5 +1,5 @@
 import abc
-import typing as t
+from typing import Optional
 
 import climetlab as cml  # type: ignore
 import pandas as pd  # type: ignore
@@ -24,7 +24,7 @@ class AbstractDataset(cml.Dataset):
     )
     dataset = None
     _as_dataframe = None
-    _merger: t.Optional[merger.AbstractMerger] = None
+    _merger: Optional[merger.AbstractMerger] = None
 
     @property
     @abc.abstractmethod
@@ -46,7 +46,7 @@ class AbstractDataset(cml.Dataset):
         """Get the data of the dataset."""
 
     @property
-    def merger(self) -> t.Optional[merger.AbstractMerger]:
+    def merger(self) -> Optional[merger.AbstractMerger]:
         """Get the merger for the source files."""
         return self._merger
 

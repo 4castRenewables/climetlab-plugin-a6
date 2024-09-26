@@ -1,19 +1,19 @@
-import typing as t
+from typing import Dict, Tuple
 
 import numpy as np
 import xarray as xr
 
 
 def calculate_absolute_wind_speed_and_wind_direction(
-    grid_point: t.Dict[str, float],
+    grid_point: dict[str, float],
     model_level: int,
     model_level_data: xr.Dataset,
-) -> t.Tuple[xr.DataArray, xr.DataArray]:
+) -> tuple[xr.DataArray, xr.DataArray]:
     """Calculate the absolute wind speed and wind direction.
 
     Parameters
     ----------
-    grid_point : t.Tuple[float, float]
+    grid_point : Dict[str, float]
         Grid point for which to calculate the wind properties.
     model_level : int
         Model level for which to calculate the wind properties.
@@ -23,7 +23,7 @@ def calculate_absolute_wind_speed_and_wind_direction(
 
     Returns
     -------
-    t.Tuple[pandas.Series, pandas.Series]
+    Tuple[xr.DataArray, xr.DataArray]
         Absolute wind speed and wind direction (angle relative to longitude).
 
     """

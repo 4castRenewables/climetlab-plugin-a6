@@ -1,18 +1,17 @@
-import re
-import typing as t
 from datetime import datetime
+from typing import Dict, List, Set, Tuple, Union
 
 import numpy as np
 import pandas as pd
 import xarray as xr
 
-Number = t.Union[int, float]
+Number = Union[int, float]
 
 
 def get_closest_grid_point_to_wind_turbine(
     production_data: xr.Dataset,
     data: xr.Dataset,
-) -> t.Dict[str, Number]:
+) -> dict[str, Number]:
     """Get the grid point in the data closest to the wind turbine.
 
     Parameters
@@ -41,7 +40,7 @@ def get_closest_grid_point_to_wind_turbine(
     return {"longitude": longitude, "latitude": latitude}
 
 
-def _get_wind_turbine_coordinates(ds: xr.Dataset) -> t.Tuple[Number, Number]:
+def _get_wind_turbine_coordinates(ds: xr.Dataset) -> tuple[Number, Number]:
     """Get the coordinates (longitude, latitude) of a wind turbine from the production data.
 
     Parameters
@@ -81,8 +80,8 @@ def _get_grid_coordinates(ds: xr.Dataset, coordinate: str) -> np.ndarray:
 
 
 def _get_closest_grid_point(
-    grid: t.List[np.ndarray], coordinates: t.Tuple[Number, ...]
-) -> t.Tuple[t.Union[int, float], ...]:
+    grid: list[np.ndarray], coordinates: tuple[Number, ...]
+) -> tuple[Union[int, float], ...]:
     """Get the grid point that is closest to the given coordinates.
 
     Parameters
@@ -122,7 +121,7 @@ def _get_closest_coordinate(coordinates: np.ndarray, value: Number) -> Number:
 
 def resample_and_clear_production_data_to_hourly_timeseries(
     production_data: xr.Dataset,
-    dates: t.List[datetime],
+    dates: list[datetime],
 ) -> xr.DataArray:
     """Resample the production data to an hourly timeseries and clear negative values.
 
@@ -130,7 +129,7 @@ def resample_and_clear_production_data_to_hourly_timeseries(
     ----------
     production_data : pandas.DataFrame
         Production data from the `maelstrom-power-production` dataset.
-    dates : t.List[datetime]
+    dates : List[datetime]
         Dates from the weather data to get all matching timestamps of the resample.
 
     Returns
@@ -170,8 +169,8 @@ def _resample_production_data_to_hourly_timeseries(
 
 
 def _get_intersection_of_dates(
-    left: pd.DataFrame, right: t.List[datetime]
-) -> t.Set[pd.Timestamp]:
+    left: pd.DataFrame, right: list[datetime]
+) -> set[pd.Timestamp]:
     return sorted(set(left.index) & set(right))
 
 

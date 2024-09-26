@@ -1,5 +1,5 @@
 """Functionality for calculating the density of air."""
-import typing as t
+from typing import Dict, Optional
 
 import numpy as np
 import xarray as xr
@@ -22,7 +22,7 @@ mol_quot = 18.01534 / 28.9644  # Quotient of molar masses of water and air."""
 
 
 def calculate_air_density(
-    grid_point: t.Dict[str, float],
+    grid_point: dict[str, float],
     model_level: int,
     model_level_data: xr.Dataset,
     surface_data: xr.Dataset,
@@ -32,7 +32,7 @@ def calculate_air_density(
 
     Parameters
     ----------
-    grid_point : t.Tuple[float, float]
+    grid_point : Dict[str, float]
         Grid point for which to calculate the air density.
     model_level : int
         Model level for which to calculate the air density.
@@ -70,7 +70,7 @@ def _calculate_density(
     temperature: xr.DataArray,
     pressure: xr.DataArray,
     specific_humidity: xr.DataArray,
-    relative_humidity: t.Optional[xr.DataArray] = None,
+    relative_humidity: Optional[xr.DataArray] = None,
 ) -> xr.DataArray:
     """Calculate air density.
 
