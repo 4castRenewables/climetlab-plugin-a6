@@ -61,6 +61,7 @@ repos:
         files: (climetlab_maelstrom_power_production|tests)
         args: ["--config", "pyproject.toml"]
         additional_dependencies: [
+          Flake8-pyproject,
           flake8-bandit,
           flake8-blind-except,
           flake8-builtins,
