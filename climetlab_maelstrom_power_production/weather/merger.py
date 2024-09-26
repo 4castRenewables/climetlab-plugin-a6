@@ -6,7 +6,7 @@
 # granted to it by virtue of its status as an intergovernmental organisation
 # nor does it submit to any jurisdiction.
 #
-import typing as t
+from typing import Optional
 
 import pandas as pd  # type: ignore
 import xarray as xr
@@ -20,7 +20,7 @@ class WeatherMerger(merger.AbstractMerger):
     # Coordinate to use for merging multiple datasets.
     concat_dim = "time"
 
-    def __init__(self, options: t.Optional[dict] = None):
+    def __init__(self, options: Optional[dict] = None):
         """Initialize the merger."""
         self.options = options or {}
 

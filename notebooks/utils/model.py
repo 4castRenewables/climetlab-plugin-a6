@@ -1,5 +1,6 @@
 import datetime
-from typing import Iterator, List
+from collections.abc import Iterator
+from typing import List
 
 import numpy as np
 import xarray as xr
@@ -58,7 +59,7 @@ def predict_power_production(
     return np.array(production)
 
 
-def _prepare_x(time_coordinate_name: str, *args: xr.DataArray) -> List:
+def _prepare_x(time_coordinate_name: str, *args: xr.DataArray) -> list:
     intersecting_dates = _get_intersecting_dates(time_coordinate_name, *args)
     intersecting_data = _select_subset(intersecting_dates, time_coordinate_name, *args)
     return list(zip(*intersecting_data))
@@ -77,7 +78,7 @@ def _get_intersecting_dates(
 
 
 def _select_subset(
-    dates: List[datetime.datetime], time_coordinate_name: str, *args
+    dates: list[datetime.datetime], time_coordinate_name: str, *args
 ) -> Iterator[np.ndarray]:
     for arg in args:
         yield arg.sel({time_coordinate_name: dates}).values

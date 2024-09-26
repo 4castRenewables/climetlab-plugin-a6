@@ -9,7 +9,7 @@
 import abc
 import datetime
 import itertools
-import typing as t
+from typing import Optional, Union
 
 import climetlab as cml  # type: ignore
 import pandas as pd  # type: ignore
@@ -58,7 +58,7 @@ class Weather(dataset.AbstractDataset):
     model_timestamp_2 = MODEL_TIMESTAMP_2
     dates = AVAILABLE_DATA_DATES
 
-    def __init__(self, date: t.Union[str, t.List[str]] = None):
+    def __init__(self, date: Optional[Union[str, list[str]]] = None):
         """Initialize and load the dataset."""
         self.date = _convert_dates(date) if date is not None else self.dates
         self._merger = merger.WeatherMerger()
@@ -67,7 +67,7 @@ class Weather(dataset.AbstractDataset):
 
     @property
     @abc.abstractmethod
-    def type(self) -> str:
+    def type(self) -> str:  # noqa: A003
         """Return the type of the weather data.
 
         Either ml (model level) or pl (pressure level).
@@ -77,7 +77,7 @@ class Weather(dataset.AbstractDataset):
     @property
     def merger(
         self,
-    ) -> t.Optional[climetlab_maelstrom_power_production.merger.AbstractMerger]:
+    ) -> Optional[climetlab_maelstrom_power_production.merger.AbstractMerger]:
         """Get the merger for the weather data."""
         return self._merger
 
@@ -88,7 +88,7 @@ class Weather(dataset.AbstractDataset):
             date_with_model_timestamp=dates_with_model_timestamps,
         )
 
-    def _add_timestamps_to_each_date(self) -> t.List[str]:
+    def _add_timestamps_to_each_date(self) -> list[str]:
         dates = (date.strftime(DATE_FORMAT_REMOTE) for date in self.date)
         timestamps = (self.model_timestamp_1, self.model_timestamp_2)
         dates_with_model_timestamps = (
@@ -98,7 +98,7 @@ class Weather(dataset.AbstractDataset):
         return list(dates_with_model_timestamps)
 
 
-def _convert_dates(dates: t.Union[str, t.List[str]]) -> t.List[datetime.datetime]:
+def _convert_dates(dates: Union[str, list[str]]) -> list[datetime.datetime]:
     if isinstance(dates, str):
         dates_as_datetime = [_convert_to_datetime(dates)]  # type: ignore
     else:
@@ -116,7 +116,7 @@ def _convert_to_datetime(date: str) -> datetime.datetime:
         )
 
 
-def _check_dates_availability(dates: t.List[datetime.datetime]) -> None:
+def _check_dates_availability(dates: list[datetime.datetime]) -> None:
     for date in dates:
         if not _date_is_available(date):
             start = AVAILABLE_DATA_DATES[0].strftime(DATE_FORMAT)

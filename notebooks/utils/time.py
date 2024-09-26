@@ -1,18 +1,18 @@
 import datetime
-import typing as t
+from typing import Callable, List, Tuple
 
 import numpy as np
 import xarray as xr
 
 
-def get_dates_from_time_coordinate(data: xr.Dataset) -> t.List[datetime.datetime]:
+def get_dates_from_time_coordinate(data: xr.Dataset) -> list[datetime.datetime]:
     """Get the time index/coordinate as a list of datetimes."""
     return data.coords["time"].to_index().to_list()
 
 
 def get_time_of_day_and_year(
-    dates: t.List[datetime.datetime], time_coord_name: str = "time"
-) -> t.Tuple[xr.DataArray, xr.DataArray]:
+    dates: list[datetime.datetime], time_coord_name: str = "time"
+) -> tuple[xr.DataArray, xr.DataArray]:
     """Calculate the time of day and year for given datetimes."""
     time_of_day = get_time_of_day(dates, time_coord_name=time_coord_name)
     time_of_year = get_time_of_year(dates, time_coord_name=time_coord_name)
@@ -20,7 +20,7 @@ def get_time_of_day_and_year(
 
 
 def get_time_of_day(
-    dates: t.List[datetime.datetime], time_coord_name: str = "time"
+    dates: list[datetime.datetime], time_coord_name: str = "time"
 ) -> xr.DataArray:
     """Calculate relative time of day for datetimes."""
     converted = _apply_to_dates(_time_of_day, dates=dates)
@@ -31,7 +31,7 @@ def get_time_of_day(
 
 
 def get_time_of_year(
-    dates: t.List[datetime.datetime], time_coord_name: str = "time"
+    dates: list[datetime.datetime], time_coord_name: str = "time"
 ) -> xr.DataArray:
     """Calculate relative time of year for datetimes."""
     converted = _apply_to_dates(_time_of_year, dates=dates)
@@ -41,11 +41,11 @@ def get_time_of_year(
     )
 
 
-def _apply_to_dates(func: t.Callable, dates: t.List[datetime.datetime]) -> np.ndarray:
+def _apply_to_dates(func: Callable, dates: list[datetime.datetime]) -> np.ndarray:
     return np.array(list(map(func, dates)))
 
 
-def _time_of_day(dt: datetime) -> float:
+def _time_of_day(dt: datetime.datetime) -> float:
     """Convert a given datetime `dt` to a point on the unit circle, where the 'period' corresponds to one day.
 
     :param datetime.datetime dt: input datetime UTC
@@ -56,7 +56,7 @@ def _time_of_day(dt: datetime) -> float:
     return seconds_since_midnight / 86400
 
 
-def _time_of_year(dt: datetime) -> float:
+def _time_of_year(dt: datetime.datetime) -> float:
     """Convert a given datetime `dt` to a point on the unit circle, where the 'period' corresponds to one year.
 
     :param datetime.datetime dt: input datetime (preferably UTC)
