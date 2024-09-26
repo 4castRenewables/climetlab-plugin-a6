@@ -18,7 +18,7 @@ jobs:
       image: python:3.9-slim
     steps:
       - uses: actions/checkout@v2
-      - run: pip install black flake8 pyupgrade isort mypy
+      - run: pip install black flake8 Flake8-pyproject pyupgrade isort mypy
       - run: isort climetlab_maelstrom_power_production tests
       - run: |
           pyupgrade \
