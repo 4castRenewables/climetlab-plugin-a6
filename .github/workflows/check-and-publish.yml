@@ -15,7 +15,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     container:
-      image: python:3.7-slim
+      image: python:3.9-slim
     steps:
       - uses: actions/checkout@v2
       - run: pip install black flake8 pyupgrade isort mypy
@@ -25,6 +25,8 @@ jobs:
           --py3-plus \
           --py36-plus \
           --py37-plus \
+          --py38-plus \
+          --py39-plus \
           $(find climetlab_maelstrom_power_production tests | grep "\.py$")
       - run: black --config pyproject.toml climetlab_maelstrom_power_production tests
       - run: flake8 --config pyproject.toml climetlab_maelstrom_power_production tests
@@ -41,11 +43,11 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     container:
-      image: fabianemmi/python-poetry:3.7-1.1.13
+      image: fabianemmi/python-poetry:3.9-1.5.1
     steps:
       - uses: actions/checkout@v2
       - name: Install package
-        run: poetry install --extras ci-tests --extras notebooks
+        run: poetry install --with ci-tests --with notebooks
       - name: Run tests
         run: |
             poetry run pytest tests \
@@ -62,7 +64,7 @@ jobs:
     needs: checks
     runs-on: ubuntu-latest
     container:
-      image: fabianemmi/python-poetry:3.7-1.1.13
+      image: fabianemmi/python-poetry:3.9-1.5.1
     steps:
     - uses: actions/checkout@v2
     - name: Check version
