@@ -12,12 +12,16 @@ Features
 In this README is a description of how to get the CliMetLab Plugin for A6.
 
 ## Installation
+
 Via `pip`
+
 ```commandline
 pip install climetlab-maelstrom-power-production
 ```
+
 or via [`poetry`](https://python-poetry.org/)
-```
+
+```bash
 git clone git@github.com:4castRenewables/climetlab-plugin-a6.git
 cd climetlab-plugin-a6
 poetry install --no-dev
@@ -26,6 +30,7 @@ poetry install --no-dev
 ## Datasets description
 
 There are five datasets:
+
 - `maelstrom-constants-a-b`
 - `maelstrom-power-production`
 - `maelstrom-weather-model-level`
@@ -41,6 +46,7 @@ Constants used for calculation of pressure at intermediate model levels.
 
 ```Python
 import climetlab as cml
+
 production_data = cml.load_dataset("maelstrom-constants-a-b")
 ```
 
@@ -57,6 +63,7 @@ For a detailed description see the link above.
 
 ```Python
 import climetlab as cml
+
 production_data = cml.load_dataset("maelstrom-power-production", wind_turbine_id=1)
 ```
 
@@ -73,6 +80,7 @@ For a detailed description see the link above.
 
 ```Python
 import climetlab as cml
+
 weather_ml = cml.load_dataset("maelstrom-weather-model-level", date="2019-01-01")
 ```
 
@@ -88,6 +96,7 @@ For a detailed description see the link above.
 
 ```Python
 import climetlab as cml
+
 weather_pl = cml.load_dataset("maelstrom-weather-pressure-level", date="2019-01-01")
 ```
 
@@ -103,6 +112,7 @@ For a detailed description see the link above.
 
 ```Python
 import climetlab as cml
+
 weather_pl = cml.load_dataset("maelstrom-weather-surface-level", date="2019-01-01")
 ```
 
@@ -117,7 +127,8 @@ The climetlab python package allows easy access to the data with a few lines of 
 ```Python
 !pip install climetlab climetlab-maelstrom-power-production
 import climetlab as cml
-data = cml.load_dataset("maelstrom-power-production", date="2019-01-01")
+
+data = cml.load_dataset("maelstrom-weather-surface-level", date="2019-01-01")
 data.to_xarray()
 ```
 
